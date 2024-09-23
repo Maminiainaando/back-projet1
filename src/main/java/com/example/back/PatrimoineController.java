@@ -26,7 +26,7 @@ public class PatrimoineController {
             }
             return ResponseEntity.ok(patrimoines.get(id));
     }
-    @GetMapping("/{id}")
+        @GetMapping("/{id}")
         public ResponseEntity<Patrimoine> getPatrimoine(@PathVariable int id) {
             Patrimoine patrimoine = patrimoines.get(id);
             if (patrimoine == null) {

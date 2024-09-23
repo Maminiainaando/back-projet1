@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class PatrimoineService {
@@ -19,17 +20,15 @@ public class PatrimoineService {
         }
 
     public void saveToFile(Patrimoine patrimoine) throws IOException {
+        int id = ThreadLocalRandom.current().nextInt(1, 10000);
+
         String str = objectMapper.writeValueAsString(patrimoine);
 
+        String lineToWrite = id + ": " + str;
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("patrimoineFiles.txt", true))) {
-            writer.append(str);
+            writer.append(lineToWrite);
             writer.newLine();
         }
-    }
-
-    public static void main(String[] args) throws IOException{
-        PatrimoineService patrimoineService=new PatrimoineService();
-        Patrimoine patrimoine=new Patrimoine("Narindra", DateTimeFormatter.ISO_LOCAL_DATE);
-        patrimoineService.saveToFile(patrimoine);
     }
 }
